@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    <title>Blog App</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="header_post">Новый пост</h2>
+                <input 
+                    class="js-post-title-input post-title-input"
+                    placeholder="Загловок"
+                    type="text">
+                <textarea
+                    class="js-post-text-input post-text-input"
+                    rows = "4"                
+                    placeholder="Текст"
+                    type="text"
+                    ></textarea>      
+                <button 
+                    disabled = ""
+                    class="js-new-post-btn new-post-btn">
+                    Опубликовать
+                </button>
+                <div id="validationMessage" class="validationMessage">
+                    заголовок или текст не должны быть пустыми
+                </div>
+            </div>
+            <div class="col">
+                <div class="posts-section">
+                    <h2 class="header_post">Лента</h2>
+                    <div class="js-posts posts">
+                        тут пока пусто ... &#9785                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
