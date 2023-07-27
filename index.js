@@ -31,35 +31,39 @@ postTextInputNode.addEventListener('input', function () {
 function validation(){
     //вычисление длины введенных значений
     const titleLength = postTitleInputNode.value.length;
+    const titleValue = postTitleInputNode.value; 
     const textLength = postTextInputNode.value.length;
+    const textValue = postTextInputNode.value; 
     // пограничные условия
-    if (titleLength > TITLE_VALIDATION_LINIT){
-        validationMessage.innerText = `Длина заголовка не должна превышеть ${TITLE_VALIDATION_LINIT} символов`;
-        validationMessage.classList.remove ("validationMessage_hidden"); // удалить класс(validationMessage_hidden со свойством display:none 
-        newPostBtnNode.setAttribute("disabled", "true");    // добавляем атрибут disabled (не активный) к кнопке
-        return
-    }
-
-    if (titleLength == 0){
+    if (titleValue.trim() === ""){
         validationMessage.innerText = `заголовок не должнен быть пустым`;
         validationMessage.classList.remove ("validationMessage_hidden");
         newPostBtnNode.setAttribute("disabled", "true");
         return
     }
 
-    if (textLength > TEXT_VALIDATION_LINIT){
-        validationMessage.innerText = `Длина текста не должна превышеть ${TEXT_VALIDATION_LINIT} символов`;
-        validationMessage.classList.remove ("validationMessage_hidden");
-        newPostBtnNode.setAttribute("disabled", "true");
+    if (titleLength > TITLE_VALIDATION_LINIT && titleValue.trim() !== ""){
+        validationMessage.innerText = `Длина заголовка не должна превышать ${TITLE_VALIDATION_LINIT} символов`;
+        validationMessage.classList.remove ("validationMessage_hidden"); // удалить класс(validationMessage_hidden со свойством display:none 
+        newPostBtnNode.setAttribute("disabled", "true");    // добавляем атрибут disabled (не активный) к кнопке
         return
     }
-    
-    if (textLength == 0){
+
+    if (textValue.trim() === ""){
         validationMessage.innerText = `текст не должнен быть пустым`;
         validationMessage.classList.remove ("validationMessage_hidden");
         newPostBtnNode.setAttribute("disabled", "true"); 
         return
     }
+
+    if (textLength > TEXT_VALIDATION_LINIT && textValue.trim() !== ""){
+        validationMessage.innerText = `Длина текста не должна превышать ${TEXT_VALIDATION_LINIT} символов`;
+        validationMessage.classList.remove ("validationMessage_hidden");
+        newPostBtnNode.setAttribute("disabled", "true");
+        return
+    }
+    
+
 
     validationMessage.classList.add ("validationMessage_hidden"); // добавляем класс validationMessage_hidden (скрываем надпись)
     newPostBtnNode.removeAttribute("disabled"); // удаляем атрибут disabled 
@@ -69,12 +73,23 @@ function getPostFromUser() {
     const title = postTitleInputNode.value;
     const text = postTextInputNode.value;
     const currentdata = new Date();
-    const data = `${currentdata.getDate()}.${currentdata.getMonth()}.${currentdata.getFullYear()} ${currentdata.getHours()}:${currentdata.getMinutes()}`;    
+    const Month = currentdata.getMonth();
+    const Minutes = currentdata.getMinutes();
+    const data = `${currentdata.getDate()}.${addActivNull(Month)}.${currentdata.getFullYear()} ${currentdata.getHours()}:${addActivNull(Minutes)}`;    
     return {
         title: title,
         text: text,
         data: data,
     };
+}
+
+function addActivNull(number){
+    if (number < 10) {
+        return "0" + number;
+    }
+    else {
+        return number;
+    }
 }
 
 function addPost({title, text, data}){
